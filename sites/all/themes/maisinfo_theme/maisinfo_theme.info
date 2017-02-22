@@ -22,7 +22,7 @@ regions[page_bottom]    = 'Page bottom'
 ;; Stylesheets
 ;;;;;;;;;;;;;;;;;;;;;
 
-stylesheets[all][] = css/boostrap.min.css
+;stylesheets[all][] = css/boostrap.min.css
 stylesheets[all][] = css/style.min.css
 
 ;;;;;;;;;;;;;;;;;;;;;

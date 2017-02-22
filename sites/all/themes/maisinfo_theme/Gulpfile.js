@@ -59,10 +59,6 @@
         imageMin = require('gulp-imagemin'),
 
         // Configuration.
-        config = {
-            source: './',
-            build: './'
-        },
         plumberOpt = {
             handleError: function (err) {
                 console.log('Plumber ->', err);
@@ -74,13 +70,13 @@
      * Bootstrap compilation.
      */
     gulp.task('bootstrap', function bootstrapTask() {
-	return gulp.src('./bootstrap/less/bootstrap.less')
-	    .pipe(plumber(plumberOpt))
-	    .pipe(sourcemaps.init())
-	    .pipe(less({
-		plugins: [autoprefix, csscomb, cleancss]
-	    }))
-	    .pipe(rename({suffix: '.min'}))
+  return gulp.src('./bootstrap/less/bootstrap.less')
+      .pipe(plumber(plumberOpt))
+      .pipe(sourcemaps.init())
+      .pipe(less({
+    plugins: [autoprefix, csscomb, cleancss]
+      }))
+      .pipe(rename({suffix: '.min'}))
             .pipe(sourcemaps.write())
             .pipe(gulp.dest('./css/'))
             .pipe(reload({stream: true}));
@@ -142,6 +138,7 @@
         gulp.src(['./img/*'])
             .pipe(plumber(plumberOpt))
             .pipe(cache(imageMin()))
+            .pipe(rename({suffix: '.min'}))
             .pipe(gulp.dest('./img/'));
     });
 
@@ -150,10 +147,13 @@
      */
     gulp.task('watch', function watchTask() {
         browserSync.init({
-            server: config.build
+            proxy: {
+              target: "http://192.168.33.10/maisinfo/",
+              ws: true
+            }
         });
 
-	gulp.watch('/bootstrap/less/**/*.less', ['bootstrap']);
+        gulp.watch('/bootstrap/less/**/*.less', ['bootstrap']);
         gulp.watch('/less/**/*.less', ['less']);
         gulp.watch('/js/**/*.js', ['js']);
     });
