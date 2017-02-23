@@ -1,0 +1,19 @@
+; Basic information
+name = Feeds: MediaRSS
+description = Adds a MediaRSS feed processor to the Feeds module.
+core = 7.x
+package = Feeds
+dependencies[] = "feeds"
+
+; Files
+files[] = feeds_mediarss.install
+files[] = feeds_mediarss.module
+files[] = FeedsMediaRSSParser.inc
+
+
+; Information added by drupal.org packaging script on 2013-05-08
+version = "7.x-1.0-beta1"
+core = "7.x"
+project = "feeds_mediarss"
+datestamp = "1368049211"
+
