@@ -70,13 +70,13 @@
      * Bootstrap compilation.
      */
     gulp.task('bootstrap', function bootstrapTask() {
-  return gulp.src('./bootstrap/less/bootstrap.less')
-      .pipe(plumber(plumberOpt))
-      .pipe(sourcemaps.init())
-      .pipe(less({
-    plugins: [autoprefix, csscomb, cleancss]
-      }))
-      .pipe(rename({suffix: '.min'}))
+        return gulp.src('./bootstrap/less/bootstrap.less')
+            .pipe(plumber(plumberOpt))
+            .pipe(sourcemaps.init())
+            .pipe(less({
+                plugins: [autoprefix, csscomb, cleancss]
+            }))
+            .pipe(rename({suffix: '.min'}))
             .pipe(sourcemaps.write())
             .pipe(gulp.dest('./css/'))
             .pipe(reload({stream: true}));
@@ -96,7 +96,7 @@
                 gutil.log('Less lint error');
             });
     });
-    gulp.task('less', ['less-lint'], function cssTask() {
+    gulp.task('less', function cssTask() {
         return gulp.src('./less/style.less')
             .pipe(plumber(plumberOpt))
             .pipe(sourcemaps.init())
@@ -104,7 +104,7 @@
                 plugins: [autoprefix, csscomb, cleancss]
             }))
             .pipe(rename({suffix: '.min'}))
-            .pipe(sourcemaps.write())
+            .pipe(sourcemaps.write('./css/'))
             .pipe(gulp.dest('./css/'))
             .pipe(reload({stream: true}));
     });
@@ -112,7 +112,7 @@
     /**
      * Javascript build.
      */
-    gulp.task('js-lint', function () {
+    gulp.task('js-lint', function jsLintTask() {
         return gulp.src(['./js/**/*.js'])
             .pipe(plumber())
             .pipe(eslint('.eslintrc'))
@@ -134,7 +134,7 @@
     /**
      * Image build.
      */
-    gulp.task('img', function () {
+    gulp.task('img', function imgTask() {
         gulp.src(['./img/*'])
             .pipe(plumber(plumberOpt))
             .pipe(cache(imageMin()))
@@ -148,15 +148,15 @@
     gulp.task('watch', function watchTask() {
         browserSync.init({
             proxy: {
-              target: "http://192.168.33.10/maisinfo/",
-              ws: true
+                target: "http://192.168.33.10/maisinfo/",
+                ws: true
             }
         });
 
-        gulp.watch('/bootstrap/less/**/*.less', ['bootstrap']);
-        gulp.watch('/less/**/*.less', ['less']);
-        gulp.watch('/js/**/*.js', ['js']);
+        gulp.watch('./bootstrap/less/**/*.less', ['bootstrap']);
+        gulp.watch('./less/**/*.less', ['less']);
+        gulp.watch('./js/**/*.js', ['js']);
     });
 
-    gulp.task('default', ['bootstrap', 'less', 'js', 'img', 'watch']);
+    gulp.task('default', ['less', 'js', 'img', 'watch']);
 }());

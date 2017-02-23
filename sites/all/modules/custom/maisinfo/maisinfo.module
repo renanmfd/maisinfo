@@ -2,10 +2,3 @@
 /**
  * @file maisinfo.module
  */
-
-/**
- * Implements hook_taxonomy_term_insert().
- */
-function hook_feeds_after_save(FeedsSource $source, $entity, $item, $entity_id) {
-  dpm(array($source,$entity,$item,$entity_id));
-}

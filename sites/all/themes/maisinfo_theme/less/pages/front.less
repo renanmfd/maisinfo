@@ -1,7 +1,48 @@
 .front {
-  .view-feed-news-block {
-    .views-row {
-      border: thin solid #CCC;
+    background-color: #000000;
+
+    .view-feed-news-block {
+        .views-row {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 2px solid @borderColor;
+            overflow: hidden;
+        }
+        .views-field {
+            margin-bottom: 10px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+        .views-field-title a {
+            font-size: 18px;
+            color: @titleColor;
+        }
+        .views-field-description span {
+            font-size: 14px;
+            color: @descColor;
+        }
+        .views-field-description img {
+            display: none;
+            max-width: 100%;
+            margin-bottom: 10px;
+            opacity: 0.9;
+
+            &:first-child {
+                display: block;
+                float: left;
+                margin-right: 10px;
+            }
+        }
+        .views-field-timestamp span {
+            font-size: 12px;
+            color: @timeColor;
+        }
     }
-  }
 }
+/**
+BUG
+Produto com stok negativo
+Quando um produto esta no fluxo de compra, não há checagem de estoque, sendo possivel dois ou mais usuarios pagarem por um produto que só tem 1 em estoque. Além disso, neste caso o stock fica negativo.
+*/
